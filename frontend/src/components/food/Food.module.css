@@ -1,0 +1,53 @@
+.food{
+    width: 280px;
+    border:1px solid #ccc;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 10px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+   
+}
+
+.food img{
+    width: 100%;
+    height: 200px;
+}
+
+.food label{
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.food input{
+    width: 30px;
+    font-size: 1.2rem;
+}
+
+
+.add-btn{
+    display: inline;
+    float: right;
+    padding: 0.2rem 1.5rem;
+    border-radius: 1.5rem;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    border:none;
+    background-color: rgb(121, 42, 42);
+    color:white;
+    cursor: pointer;
+    position: relative;
+    top: -8px;
+}
+.add-btnn{
+    display: inline;
+    padding: 0.2rem 1.5rem;
+    border-radius: 1.5rem;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    border:none;
+    background-color: rgb(121, 42, 42);
+    color:white;
+    cursor: pointer;
+}
