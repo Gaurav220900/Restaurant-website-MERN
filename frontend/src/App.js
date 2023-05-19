@@ -5,6 +5,8 @@ import Homepage from "./pages/Homepage";
 import Cart from "./pages/Cart";
 import AddFood from "./pages/AddFood";
 import UpdateFood from './pages/UpdateFood';
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path='/addFood' element= {<AddFood />} />
         <Route path= '/updateFood/:id' element= {<UpdateFood />} />
+        <Route path= '/login' element = {<Login />} />
+        <Route path= '/signUp' element = { <SignUp />} />
       </Routes>
     </Layout>
   );
