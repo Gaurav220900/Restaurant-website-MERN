@@ -39,7 +39,12 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.json())
+app.use(express.json());
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use(morgan('tiny'))
 
@@ -48,6 +53,8 @@ app.use(
     origin: ["http://localhost:3000"],
   })
 );
+
+
 app.use(foodRoute);
 app.use(authRoutes);
 

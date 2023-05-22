@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const foodModel = require("../src/models/food");
+const mongoose = require('mongoose');
+const  ObjectID = require('mongodb').ObjectID;
+
 
 router.post("/foods", async (req, res) => {
   let response = {
@@ -14,6 +17,7 @@ router.post("/foods", async (req, res) => {
       .then((doc) => {
         response.status = true;
         response.message = "Food added successfully";
+        response.data = doc;
         res.status(200).json(response);
       })
       .catch((err) => {
@@ -44,8 +48,7 @@ router.get("/foods", async (req, res) => {
 
 router.get('/food/:id',async ( req,res) => {
 
-    let {id} = req.params.id;
-     id = new ObjectId(id);
+    let id = req.params.id;
     // console.log(id);
     let response = {status: false};
     foodModel
@@ -54,6 +57,7 @@ router.get('/food/:id',async ( req,res) => {
       response.status = true;
       response.data = doc;
       res.send(response);
+      //res.status(200).json({data:doc});
     })
     .catch((err) => {
       response.error = err;
@@ -78,5 +82,33 @@ router.delete('/foods/:id', async(req,res) => {
       res.send(response);
     });
 });
+
+router.put("/food/:id",  function (req, res) {
+  let response = {
+    status: false,
+  };
+
+  let body = req.body;
+
+  const Id = req.params.id;
+
+  const filter = { _id: mongoose.Types.ObjectId(Id) };
+  const update = body;
+
+  Model
+    .findOneAndUpdate(filter, update, {
+      new: true,
+    })
+    .then((doc) => {
+      response.status = true;
+      response.data = doc;
+      res.send(response);
+    })
+    .catch((err) => {
+      response.error = err;
+      res.send(response);
+    });
+});
+
 
 module.exports = router;

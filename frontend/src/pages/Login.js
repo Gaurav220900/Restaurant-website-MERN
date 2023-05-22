@@ -5,7 +5,7 @@ import AuthContext from '../store/AuthContext';
 import styles from './Login.module.css';
 
 const Login = () => {
-    const emailInputRef = useRef();
+    const usernameInputRef = useRef();
     const passwordInputRef = useRef();
     const navigate = useNavigate();
     const authContext = useContext(AuthContext);
@@ -13,35 +13,33 @@ const Login = () => {
     const loginFormHandler = async(e) => {
         e.preventDefault();
 
-       
-        try {
-            const res = await axios.post("http://localhost:4000/auth/login", {
-            email: emailInputRef.current.value,
+            axios.post("http://localhost:4000/login", {
+            username: usernameInputRef.current.value,
             password: passwordInputRef.current.value,
-            });
-
-            if (res.status === 200) {
-                authContext.getLoggedIn();
-                navigate('/allfoods');
-            } else {
-                throw new Error('Login Error');
-            }
-        }
-        catch (e) {
-            console.log('Cannot Login At the moment');
-        }
+            })
+            .then((doc) => {
+                console.log(doc.data.user);
+                authContext.getLoggedIn(doc.data.user);
+                navigate('/homepage');
+                
+            })
+            .catch ((e) => {
+                window.alert('username or password is not correct');
+            })
+              
+        
     }
 
 
     return (
         <form onSubmit={loginFormHandler} className={styles['login-form']}>
             <div>
-                <label htmlFor="email">Email</label>
-                <input type="text" placeholder="Enter your email" ref={emailInputRef} />
+                <label htmlFor="username">Username</label>
+                <input className={styles['input-btn']} type="text" placeholder="Enter your username" ref={usernameInputRef} />
             </div>
             <div>
                 <label htmlFor="password">Password</label>
-                <input type="password" placeholder="Enter Password" ref={passwordInputRef}/>
+                <input className={styles['input-btn']} type="password" placeholder="Enter Password" ref={passwordInputRef}/>
             </div>
             <button>Login</button>
         </form>

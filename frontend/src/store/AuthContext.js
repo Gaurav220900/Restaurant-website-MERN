@@ -1,28 +1,30 @@
 import React, { useState,useEffect,createContext } from 'react';
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext({
     isLoggedIn: '',
     getLoggedIn: ()=> {},
-    LogOutUser: ()=> {}
+    LogoutUser: ()=> {}
 });
 
 export const AuthContextProvider = (props) => {
 
     const [isLoggedIn,setIsLoggedIn] = useState(undefined);
+    const navigate = useNavigate();
 
-  async function getLoggedIn() {
-        // const loggedInRes = await axios.get('http://localhost:4000/auth/login');
-        // console.log(loggedInRes.data);
-        // setIsLoggedIn(loggedInRes.data);
+  async function getLoggedIn(user) {
+        //const loggedInRes = await axios.get('http://localhost:4000/login');
+        //console.log(user);
+        setIsLoggedIn(user);
     }
 
     async function logoutUser() {
-        // const res = await axios.get('http://localhost:4000/auth/logout');
-        // if (res.status === 200) {
-        //     console.log('Logged Out Successfully');
-        //     getLoggedIn();
-        // }
+        const res = await axios.get('http://localhost:4000/auth/logout');
+        if (res.status === 200) {
+            console.log('Logged Out Successfully');
+            setIsLoggedIn(undefined);
+        }
     }
 
     useEffect(() => {

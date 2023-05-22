@@ -1,23 +1,24 @@
 import React,{useState} from 'react';
 import axios from 'axios';
 import styles from '../components/Add-Food/AddFoodForm.module.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
-const UpdateFood = (props) => {
+const UpdateFood = async() => {
     
     const params = useParams();
+    const navigate = useNavigate();
     
 
     const {id} = params;
-    console.log(id);
+   // console.log(id);
 
-    const res = axios.get(`http://localhost:4000/food/${id}`);
-
-    const [name,setName] = useState(res.data.name);
-    const [price,setPrice] = useState(res.data.price);
-    const [image,setImage] = useState(res.data.image);
-    const [desc,setDesc] = useState(res.data.desc);
+    let res = await axios.get(`http://localhost:4000/food/${id}`);
+    console.log(res.data.data);
+    const [name,setName] = useState(res.data.data[name]);
+    const [price,setPrice] = useState(res.data.data[price]);
+    const [image,setImage] = useState(res.data.data[image]);
+    const [desc,setDesc] = useState(res.data.data[desc]);
 
 
   const nameChangeHandler = (event) => {
@@ -42,8 +43,9 @@ const UpdateFood = (props) => {
           image: image,
           desc: desc,
       };
+      console.log('in update function');
 
-      const res = await axios.update(`http://localhost:4000/foods/${id}`,body);
+      const res = await axios.put(`http://localhost:4000/food/${id}`,body);
       console.log(res); 
 
       setName('');
@@ -51,7 +53,7 @@ const UpdateFood = (props) => {
       setImage("");
       setDesc("");
 
-      //navigate('/homepage');
+      navigate('/homepage');
   };
   return (
   <form onSubmit={formDataHandler} className={styles.form}>

@@ -5,10 +5,11 @@
     width: 360px;
     margin: 100px auto;
     border-radius: 8px;
+    border: 2px solid #ccc;
 }
 
-.login-form input{
-    display: block;
+.input-btn{
+   
     font-size: 16px;
     padding: 5px;
     margin-bottom: 10px;
@@ -19,6 +20,11 @@
     font-size: 16px;
     margin-bottom: 10px;
     display: block;
+}
+
+.radio-btns {
+    display: inline;
+    width: 5%;
 }
 
 .login-form button{
